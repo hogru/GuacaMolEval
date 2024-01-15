@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "GuacaMolEval"
+version = "0.1.0"
+description = "TBD"
+authors = ["Stephan Holzgruber <stephan.holzgruber@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+torch = "^2.1"  # Original v1.10
+joblib = "^1.3"
+numpy = ">=1.23.5,<2"  # Original v1.21.4
+tqdm = "^4.66"
+# tensorflow = "^2.15"  # Original 1.13.2
+# keras = "^2.15"  # Original v2.3.1
+h5py = "3.10"  # Original v2.10
+pandas = "^2.2"
+fcd = "^1.2"
+rdkit = "^2023.9.4"
+pre-commit = "^3.6.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.14"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
