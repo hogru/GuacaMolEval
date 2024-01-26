@@ -1,8 +1,8 @@
 # coding=utf-8
 import argparse
 
-from guacamol.distribution_matching_generator import DistributionMatchingGenerator
-from guacamol.assess_distribution_learning import assess_distribution_learning
+from guacamol.distribution_matching_generator import DistributionMatchingGenerator  # type: ignore
+from guacamol.assess_distribution_learning import assess_distribution_learning  # type: ignore
 from typing import Final, Union
 from pathlib import Path
 import pandas as pd  # type: ignore
@@ -11,8 +11,12 @@ import argparse
 DEFAULT_OUTPUT_FILE_NAME: Final[str] = "GuacaMolEval.json"
 DEFAULT_NUM_MOLECULES: Final[int] = 10000
 VALID_ONLY: Final[bool] = True
-TEMP_MOLECULES_PATH: Final[str] = "/home/stephan/code/guacamoleval/data/samples/generated_smiles.csv"
-TEMP_GUACAMOL_PATH: Final[str] = "/home/stephan/code/guacamoleval/data/guacamol/guacamol_v1_train.csv"
+TEMP_MOLECULES_PATH: Final[
+    str
+] = "/home/stephan/code/guacamoleval/data/samples/generated_smiles.csv"
+TEMP_GUACAMOL_PATH: Final[
+    str
+] = "/home/stephan/code/guacamoleval/data/guacamol/guacamol_v1_train.csv"
 
 
 class GuacaMolEval(DistributionMatchingGenerator):
@@ -20,11 +24,13 @@ class GuacaMolEval(DistributionMatchingGenerator):
         # super.__init__()
         self.file_path = Path(file_path).resolve()
         self.valid_only = valid_only
-        self._molecules: list[str] = self._read_molecules_from_file(self.file_path, self.valid_only)
+        self._molecules: list[str] = self._read_molecules_from_file(
+            self.file_path, self.valid_only
+        )
 
     @staticmethod
     def _read_molecules_from_file(
-            file_path: Path, valid_only: bool = False
+        file_path: Path, valid_only: bool = False
     ) -> list[str]:
         """Read molecules from a CSV file.
         Args:
@@ -60,7 +66,7 @@ class GuacaMolEval(DistributionMatchingGenerator):
                 molecules_df = pd.read_csv(file_path, header=None, usecols=[0])
             if valid_only:
                 raise ValueError(
-                        "The 'valid_only' option is not supported for this file, check file format"
+                    "The 'valid_only' option is not supported for this file, check file format"
                 ) from e
 
         # Delete rows with NaN values
@@ -71,8 +77,8 @@ class GuacaMolEval(DistributionMatchingGenerator):
         if number_samples > len(self._molecules):
             adjective_str = "valid" if self.valid_only else "generated"
             raise ValueError(
-                    f"The number of molecules to be evaluated ({number_samples:,d}) is greater than "
-                    f"the number of {adjective_str} molecules ({len(self._molecules):,d})"
+                f"The number of molecules to be evaluated ({number_samples:,d}) is greater than "
+                f"the number of {adjective_str} molecules ({len(self._molecules):,d})"
             )
         return self._molecules[:number_samples]
 
@@ -119,10 +125,12 @@ def get_args() -> argparse.Namespace:
 def main() -> None:
     # args = get_args()
     evaluator = GuacaMolEval(TEMP_MOLECULES_PATH, VALID_ONLY)
-    assess_distribution_learning(model=evaluator,
-                                 chembl_training_file=TEMP_GUACAMOL_PATH,
-                                 json_output_file=DEFAULT_OUTPUT_FILE_NAME)
+    assess_distribution_learning(
+        model=evaluator,
+        chembl_training_file=TEMP_GUACAMOL_PATH,
+        json_output_file=DEFAULT_OUTPUT_FILE_NAME,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
