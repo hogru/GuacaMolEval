@@ -1,0 +1,3 @@
+[submodule "src/guacamol"]
+	path = src/guacamol
+	url = https://github.com/hogru/guacamol
