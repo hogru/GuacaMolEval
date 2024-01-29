@@ -4,3 +4,5 @@
 *.log
 *.tar.gz
 *.whl
+.DS_Store
+__pycache__
