@@ -1,5 +1,6 @@
 /data/*
 *.iml
 *.json
+*.log
 *.tar.gz
 *.whl
