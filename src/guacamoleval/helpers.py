@@ -31,8 +31,8 @@ SIGNS_FOR_ROOT_DIR: Final[tuple[str, ...]] = (
 
 
 def guess_project_root_dir(
-        caller_file_path: Optional[Union[PathLike, str]] = None,
-        signs_for_root_dir: Iterable[str] = SIGNS_FOR_ROOT_DIR,
+    caller_file_path: Optional[Union[PathLike, str]] = None,
+    signs_for_root_dir: Iterable[str] = SIGNS_FOR_ROOT_DIR,
 ) -> Path:
     """Guess the project´s root directory.
 
@@ -85,7 +85,7 @@ class _InterceptHandler(logging.Handler):
             depth += 1
 
         logger.opt(depth=depth, exception=record.exc_info).log(
-                level, record.getMessage()
+            level, record.getMessage()
         )
 
 
@@ -95,15 +95,15 @@ def _show_warning(message: str, *_: Any, **__: Any) -> None:
 
 
 def configure_logging(
-        log_level: int = logging.INFO,
-        *,
-        console_format: Optional[str] = None,
-        file_format: Optional[str] = None,
-        file_log_level: Optional[int] = None,
-        log_dir: Optional[Union[PathLike, str]] = None,
-        log_file: Optional[Union[PathLike, str]] = None,
-        rotation: str = "1 day",
-        retention: str = "7 days",
+    log_level: int = logging.INFO,
+    *,
+    console_format: Optional[str] = None,
+    file_format: Optional[str] = None,
+    file_log_level: Optional[int] = None,
+    log_dir: Optional[Union[PathLike, str]] = None,
+    log_file: Optional[Union[PathLike, str]] = None,
+    rotation: str = "1 day",
+    retention: str = "7 days",
 ) -> None:
     """Configure logging.
 
@@ -154,15 +154,15 @@ def configure_logging(
 
     # Add file handler
     logger.add(
-            sink=log_file,
-            rotation=rotation,
-            retention=retention,
-            level=file_log_level,
-            format=file_format,
-            enqueue=True,
-            backtrace=True,
-            diagnose=True,
-            colorize=False,
+        sink=log_file,
+        rotation=rotation,
+        retention=retention,
+        level=file_log_level,
+        format=file_format,
+        enqueue=True,
+        backtrace=True,
+        diagnose=True,
+        colorize=False,
     )
 
     # Redirect warnings to logger
@@ -172,5 +172,5 @@ def configure_logging(
     logging.basicConfig(handlers=[_InterceptHandler()], level=0, force=True)
 
     logger.debug(
-            f"Logging with log level {file_log_level} to {log_file} with rotation {rotation} and retention {retention}"
+        f"Logging with log level {file_log_level} to {log_file} with rotation {rotation} and retention {retention}"
     )
