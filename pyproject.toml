@@ -38,3 +38,14 @@ pandas-stubs = "^2.1.4.231227"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+modules = "guacamol"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src/guacamol"
+# ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "guacamol"
