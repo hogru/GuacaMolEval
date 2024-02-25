@@ -8,7 +8,7 @@ from guacamol.assess_distribution_learning import assess_distribution_learning
 from guacamol.distribution_matching_generator import DistributionMatchingGenerator
 from loguru import logger
 
-from guacamoleval.helpers import configure_logging, guess_project_root_dir
+from helpers import configure_logging, guess_project_root_dir
 
 DEFAULT_OUTPUT_FILE_NAME: Final[str] = "GuacaMolEval.json"
 DEFAULT_NUM_GEN_MOLECULES: Final[int] = 10_000
@@ -138,7 +138,7 @@ def main() -> None:
     if args.num_gen_mols < 3:
         raise ValueError("Number of generated molecules must be at least 3.")
     logger.info(
-        f"Reading {args.num_gen_mols} generated molecules from {args.generated}"
+        f"Reading {args.num_gen_mols:,} generated molecules from {args.generated}"
     )
 
     if args.num_ref_mols < 3:
@@ -147,7 +147,7 @@ def main() -> None:
     if not args.reference.is_file():
         raise ValueError(f"File '{args.reference}' does not exist.")
     logger.info(
-        f"Reading {args.num_ref_mols} refenence molecules from {args.reference}"
+        f"Reading {args.num_ref_mols:,} reference molecules from {args.reference}"
     )
 
     if args.output is None:
