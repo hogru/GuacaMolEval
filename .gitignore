@@ -1,4 +1,8 @@
 /data/*
+/temp/*
+*.bin
+*.egg-info
+*.html
 *.iml
 *.json
 *.log
@@ -6,4 +10,3 @@
 *.whl
 .DS_Store
 __pycache__
-/*.egg-info
