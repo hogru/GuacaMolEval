@@ -1,3 +1,6 @@
 [submodule "src/guacamol"]
 	path = src/guacamol
 	url = https://hogru@github.com/hogru/guacamol
+[submodule "src/fcd"]
+	path = src/fcd
+	url = https://hogru@github.com/hogru/fcd
