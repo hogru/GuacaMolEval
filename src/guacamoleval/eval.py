@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Final, Union
 
 import pandas as pd
-from guacamol.assess_distribution_learning import assess_distribution_learning
-from guacamol.distribution_matching_generator import DistributionMatchingGenerator
+from guacamol.assess_distribution_learning import assess_distribution_learning  # type: ignore
+from guacamol.distribution_matching_generator import DistributionMatchingGenerator  # type: ignore
 from loguru import logger
 
 from helpers import configure_logging, guess_project_root_dir
