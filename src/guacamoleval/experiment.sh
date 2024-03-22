@@ -2,12 +2,13 @@
 # Sample script to evaluate molecules with Guacamol
 # Current directory should contain the python scripts
 # i.e. src/guacamoleval/
+# A single experiment is run with the following parameters
 
 EVAL_SCRIPT="eval.py"
 GENERATED_MOLECULES="../../data/generated/generated_smiles.csv"
 REFERENCE_MOLECULES="../../data/reference/guacamol_v1_train.csv"
 NUM_GENERATED=10000
-# NUM_REFERENCE=100000
+# NUM_REFERENCE=100000  # optional, default is the complete training set
 # OUTPUT_FILE="./GuacaMolEval.json"  # same as default
 
 
@@ -28,33 +29,14 @@ fi
 
 
 echo "Evaluation molecules..."
+echo "  Taking $NUM_GENERATED molecules from: $GENERATED_MOLECULES"
+# echo "  Taking $NUM_REFERENCE molecules from: $REFERENCE_MOLECULES"
 echo
 
 echo "Starting evaluation at $(date +%T)..."
-
 python eval.py \
   -g "$GENERATED_MOLECULES" \
   -m "$NUM_GENERATED" \
-  -r "$REFERENCE_MOLECULES" \
-  -n 2000 \
-  -o "../../data/generated/GuacaMolEval_num_2000_pad_350.json"
-python eval.py \
-  -g "$GENERATED_MOLECULES" \
-  -m "$NUM_GENERATED" \
-  -r "$REFERENCE_MOLECULES" \
-  -n 10000 \
-  -o "../../data/generated/GuacaMolEval_num_10000_pad_350.json"
-python eval.py \
-  -g "$GENERATED_MOLECULES" \
-  -m "$NUM_GENERATED" \
-  -r "$REFERENCE_MOLECULES" \
-  -n 50000 \
-  -o "../../data/generated/GuacaMolEval_num_50000_pad_350.json"
-python eval.py \
-  -g "$GENERATED_MOLECULES" \
-  -m "$NUM_GENERATED" \
-  -r "$REFERENCE_MOLECULES" \
-  -n 250000 \
-  -o "../../data/generated/GuacaMolEval_num_250000_pad_350.json"
-
+  -r "$REFERENCE_MOLECULES"  # \
+  # -n "NUM_REFERENCE"
 date +"---- Finished evaluation at %T"
