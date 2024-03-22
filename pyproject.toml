@@ -27,6 +27,8 @@ loguru = "^0.7.2"
 # keras = "2.3.1"
 # nltk = "3.4.5"
 # tensorflow = "1.13.2"
+jupyter = "^1.0.0"
+matplotlib = "^3.8.3"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.13.2"
