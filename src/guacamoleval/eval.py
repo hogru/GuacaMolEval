@@ -78,6 +78,9 @@ class GuacaMolEval(DistributionMatchingGenerator):
             )
         return self._molecules[:number_samples]
 
+    def __len__(self) -> int:
+        return len(self._molecules)
+
 
 def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -141,14 +144,13 @@ def main() -> None:
         f"Reading {args.num_gen_mols:,} generated molecules from {args.generated}"
     )
 
-    if args.num_ref_mols < 3:
+    if args.num_ref_mols is not None and args.num_ref_mols < 3:
         raise ValueError("Number of reference molecules must be at least 3.")
     args.reference = args.reference.resolve()
     if not args.reference.is_file():
         raise ValueError(f"File '{args.reference}' does not exist.")
-    logger.info(
-        f"Reading {args.num_ref_mols:,} reference molecules from {args.reference}"
-    )
+    num_ref_mols_str = "ALL" if args.num_ref_mols is None else f"{args.num_ref_mols:,}"
+    logger.info(f"Reading {num_ref_mols_str} reference molecules from {args.reference}")
 
     if args.output is None:
         args.output = args.generated.parent / DEFAULT_OUTPUT_FILE_NAME
