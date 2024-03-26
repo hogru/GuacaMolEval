@@ -1,4 +1,18 @@
 # coding=utf-8
+# src/guacamoleval/eval.py
+"""Calculate the FCD (among other metrics) for a set of generated molecules.
+
+Classes:
+    GuacaMolEval:
+        A class to provide generated molecules from a file with the GuacaMol Distribution Learning Benchmark.
+
+Functions:
+    get_args:
+        Parse the command line arguments.
+    main:
+        The main function to calculate the FCD for a set of generated molecules.
+"""
+
 import argparse
 from pathlib import Path
 from typing import Final, Union
@@ -131,24 +145,27 @@ def get_args() -> argparse.Namespace:
 
 @logger.catch
 def main() -> None:
+    # Configure logging
     configure_logging()
 
+    # Get and validate command line arguments
     args = get_args()
-
     args.generated = args.generated.resolve()
     if not args.generated.is_file():
         raise ValueError(f"File '{args.generated}' does not exist.")
     if args.num_gen_mols < 3:
         raise ValueError("Number of generated molecules must be at least 3.")
+
     logger.info(
         f"Reading {args.num_gen_mols:,} generated molecules from {args.generated}"
     )
-
     if args.num_ref_mols is not None and args.num_ref_mols < 3:
         raise ValueError("Number of reference molecules must be at least 3.")
+
     args.reference = args.reference.resolve()
     if not args.reference.is_file():
         raise ValueError(f"File '{args.reference}' does not exist.")
+
     num_ref_mols_str = "ALL" if args.num_ref_mols is None else f"{args.num_ref_mols:,}"
     logger.info(f"Reading {num_ref_mols_str} reference molecules from {args.reference}")
 
@@ -159,6 +176,7 @@ def main() -> None:
         args.output.parent.mkdir(parents=True, exist_ok=True)
     logger.info(f"Writing evaluation statistic to {args.output}")
 
+    # Evaluate the generated molecules
     evaluator = GuacaMolEval(args.generated)
     assess_distribution_learning(
         model=evaluator,
