@@ -1,5 +1,6 @@
 /data/*
 /temp/*
+/.idea/*
 *.bin
 *.egg-info
 *.html
@@ -9,5 +10,4 @@
 *.tar.gz
 *.whl
 .DS_Store
-.idea
 __pycache__
